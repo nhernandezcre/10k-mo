@@ -1,0 +1,140 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+  --font-serif: "Instrument Serif", "Playfair Display", Georgia, serif;
+
+  --color-plum-50: #f8f0f4;
+  --color-plum-100: #f0d8e3;
+  --color-plum-200: #dcb0c5;
+  --color-plum-300: #c188a6;
+  --color-plum-400: #9a5779;
+  --color-plum-500: #7c3a5c;
+  --color-plum-600: #5b2a42;
+  --color-plum-700: #4a2335;
+  --color-plum-800: #351824;
+  --color-plum-900: #1d0c14;
+
+  --color-cream-50: #fdfaf4;
+  --color-cream-100: #f9f1e3;
+  --color-cream-200: #f5ede1;
+  --color-cream-300: #ebdcc4;
+  --color-cream-400: #d9c29e;
+
+  --color-ink-900: #0f0a0d;
+  --color-ink-800: #1a1115;
+  --color-ink-700: #251820;
+  --color-ink-500: #3d2a33;
+
+  --color-brand: var(--color-plum-600);
+  --color-brand-accent: var(--color-cream-200);
+}
+
+:root {
+  color-scheme: light dark;
+  --bg: var(--color-cream-200);
+  --bg-elev: #ffffff;
+  --fg: var(--color-ink-900);
+  --fg-muted: #6b5a63;
+  --border: #e8dccb;
+  --brand: var(--color-plum-600);
+  --brand-fg: var(--color-cream-100);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: var(--color-ink-900);
+    --bg-elev: #17111480;
+    --fg: var(--color-cream-100);
+    --fg-muted: #9a8a91;
+    --border: #2a1d25;
+    --brand: var(--color-plum-400);
+    --brand-fg: var(--color-cream-100);
+  }
+}
+
+html, body {
+  height: 100%;
+  overscroll-behavior-y: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  min-height: 100dvh;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 600px 400px at 20% 10%, rgba(91,42,66,0.18), transparent 70%),
+    radial-gradient(ellipse 500px 500px at 85% 90%, rgba(154,87,121,0.12), transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+@media (prefers-color-scheme: dark) {
+  body::before {
+    background:
+      radial-gradient(ellipse 600px 400px at 20% 10%, rgba(154,87,121,0.12), transparent 70%),
+      radial-gradient(ellipse 500px 500px at 85% 90%, rgba(91,42,66,0.18), transparent 70%);
+  }
+}
+
+.font-serif { font-family: var(--font-serif); letter-spacing: -0.015em; }
+.font-sans { font-family: var(--font-sans); }
+
+/* Disable tap highlight on mobile */
+* { -webkit-tap-highlight-color: transparent; }
+
+/* Smooth scroll */
+html { scroll-behavior: smooth; }
+
+/* Selection */
+::selection { background: var(--brand); color: var(--brand-fg); }
+
+/* Subtle shimmer for loading */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite linear;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-in-up { animation: fadeInUp 0.5s ease-out forwards; }
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+.pulse-glow { animation: pulseGlow 1.8s ease-in-out infinite; }
+
+/* Utility: phone-shell containment on larger screens */
+.phone-shell {
+  max-width: 430px;
+  margin-inline: auto;
+  min-height: 100dvh;
+  position: relative;
+}
+
+@media (min-width: 640px) {
+  .phone-shell {
+    border-inline: 1px solid var(--border);
+    background: var(--bg);
+  }
+}
